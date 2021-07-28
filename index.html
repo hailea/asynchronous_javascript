@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tourney:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="resources/styles/app.css">
+    <title>Asynchronous Functions</title>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <header>
+                <h1 class="has-text-centered">Asynchronous JavaScript</h1>
+            </header>
+            <section>                
+                <div>
+                    <h1>Some Points About Functions</h1>
+                    <ol>
+                        <li>Javascript is a single threaded language. This means it has one call stack and one
+                            memory
+                            heap. As expected, it executes code in order and must finish executing a piece code
+                            before
+                            moving onto the next.
+                            Memory Heap is used to allocate the memory used by your JavaScript program.
+                            Call Stack: Within the call stack, your JS code is read and gets executed line by line.
+                        </li>
+                        <li>A thread is basically a single process that a program can use to complete tasks. Each
+                            thread
+                            can only do a single task at once:
+
+                            Task A --> Task B --> Task C
+
+                            Each task will be run sequentially; a task has to complete before the next one can be
+                            started.</li>
+                        <li>Call stack is a stack with a LIFO (Last In, First Out) structure, which is used to store
+                            all
+                            the execution context created during the code execution. </li>
+                        <li>JS functions are executed in the sequence they are called, not in the sequence they are
+                            finished.</li>
+
+                        <li>Callbacks are just the name of a convention for using JavaScript functions. A callback
+                            function is a function passed into another function as an argument, which is then
+                            invoked
+                            inside the
+                            outer function to complete some kind of routine or action.</li>
+                        <li>JavaScript is a strange language. Once in a while, you have to deal with a callback
+                            that's
+                            in another callback that's in yet another callback. People affectionately call this
+                            pattern
+                            the callback hell.
+                        </li>
+                        <li>
+                            There are two main types of asynchronous code style in JavaScript code,
+                            old-style callbacks and newer promise-style code.
+                        </li>
+                        <li>Asynchronous JS governs how we perform tasks which take some time to complete (Eg. Getting data from a
+                            database)</li>
+                        <li>starts now and finishes later</li>
+                  
+                    </ol>
+                </div>
+                <div>
+                    <h1>XMLHTTPRequest</h1>
+                    <ol>
+                        <li>XMLHttpRequest is an API in the form of an object whose methods transfer data between a
+                            web
+                            browser and a web server. The object is provided by the browser's JavaScript
+                            environment.
+                        </li>
+                        <li>XMLHttpRequest (XHR) objects are used to interact with servers. It is used to get data
+                            from
+                            another server by making requests to API end points</li>
+                        <li>By using XMLHTTPRequest object, you can retrieve data from a URL without having to do a
+                            full
+                            page refresh. </li>
+                        <li>XMLHttpRequest object enables a Web page to update part of a page without disrupting
+                            what
+                            the user is doing. It is used heavily in AJAX programming.</li>
+                        <li><em>A request made via XMLHttpRequest can fetch the data in one of two ways,
+                                asynchronously or synchronously. The type of request is dictated by the optional
+                                async argument (the third argument) that is set on the XMLHttpRequest.open()
+                                method. If this argument is true or not specified, the XMLHttpRequest is
+                                processed asynchronously, otherwise the process is handled synchronously.</em>
+                        </li>
+
+                    </ol>
+                    <div class="columns my-1 pr-4 has-background-light">
+                        <div class="column is-one-third">
+                            <code> <br>
+                                const req = new XMLHTTPRequest(); <br>
+                                req.addEventListener('readystatechange',()=>{ <br>
+                                     if(req.readyState === 4 && req.status === 200){         <br>                                    
+                                        const jData = req.responseText  <br>
+                                        console.log(jData);     <br>
+                                        const oData = JSON.parse(jData);
+                                     } <br>
+                                      else if (req.readyState === 4){   <br>
+                                         console.log("404 Error: We couldn't find the data!!!");   <br>
+                                     }    <br>
+                                 });   <br>
+                                 req.open('GET',url);       <br>
+                                 req.send(); <br>                              
+                            </code>
+                            <br>
+
+                            <em>Note:- An application programming interface (API) is a connection between computers
+                                or between computer
+                                programs. It is a type of software interface, offering a service to other pieces of
+                                software.</em>
+
+                        </div>
+                        <div class="column is-two-thirds pl-3">
+                            <ol> Steps to get data from the server by using xmlhttprequest method
+                                <li>create a new XMLHTTPRequest() request object. This constructor initializes an
+                                    XMLHTTPRequest. It must be called before any other method calls.</li>
+                                <li>The JavaScript addEventListener () method allows you to set up functions to be
+                                    called when a specified event happens,
+                                    such as when a user clicks a button. In this case when there is a ready state
+                                    change
+                                    from 0,1,2,3,4</li>
+
+                                <li>The Document.readyState property describes the loading state of the document.
+                                    When the value of this property changes, a readystatechange event fires on the
+                                    document
+                                    object.</li>
+                                <li>The XMLHttpRequest.readyState property returns the state an XMLHttpRequest
+                                    client is
+                                    in.
+                                    An XHR client exists in one of the following states:
+                                    <ul class="is-size-7">
+                                        <li>0 (UNSENT):- client has been created. open() not called yet</li>
+                                        <li>1 (OPENED):- OPEN() has been called</li>
+                                        <li>2 (HEADERS_RECEIVED):- send() has been called, and headers and status
+                                            are
+                                            available.</li>
+                                        <li>3 (LOADING):- Downloading, responseText holds partial data</li>
+                                        <li>4 (DONE):- The operation is complete</li>
+                                    </ul>
+                                </li>
+                                <li>req.responseText returns a DOMString that contains the response to the request
+                                    as text, or null if the request was unsuccessful or has not yet been sent.</li>
+                                <li>The XMLHttpRequest method open() initializes a newly-created request, or
+                                    re-initializes an existing one.
+                                    syntax:
+                                    <code>XMLHttpRequest.open(method, url[, async[, user[, password]]])</code>
+                                </li>
+                                <li>
+                                    The XMLHttpRequest method send() sends the request to the server. If the request
+                                    is
+                                    asynchronous (which is the default), this method returns as soon as the request
+                                    is
+                                    sent and the result is delivered using events. If the request is synchronous,
+                                    this
+                                    method doesn't return until the response has arrived. Syntax :
+                                    <code>XMLHttpRequest.send(body)</code>
+                                </li>
+                                <li>To convert JSON data to JS object use
+                                    <code>const data = JSON.parse(this.responseText)</code>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <h1>Callback hell</h1>
+                    <ol>
+                        <li>Callbacks are just the name of a convention for using JavaScript functions. There isn't a special thing called a 'callback' in the JavaScript language, it's just a convention. Instead of immediately returning some result like most functions, functions that use callbacks take some time to produce a result. The word 'asynchronous', aka 'async' just means 'takes some time' or 'happens in the future, not right now'. Usually callbacks are only used when doing I/O, e.g. downloading things, reading files, talking to databases, etc. </li>
+                        <li>Callback Hell, also known as Pyramid of Doom, is an anti-pattern seen in code of asynchronous programming. It is a slang term used to describe and unwieldy number of nested “if” statements or functions. If you are not expecting your application logic to get too complex, a few callbacks seem harmless.</li>
+                        <li>Callback hell is a block where the use of function callbacks in asynchronous code becomes obscure or difficult to follow.</li>
+                    </ol>
+                </div>
+                <div>
+                    <h1>Promise</h1>
+                    <ol>
+                        <li>A Promise is an object representing the eventual completion or failure of an
+                            asynchronous operation. </li>
+                        <li>A Promise is a proxy for a value not necessarily known when the promise is created.
+                            It
+                            allows you to associate handlers with an asynchronous action's eventual success
+                            value or
+                            failure reason. This lets asynchronous methods return values like synchronous
+                            methods:
+                            instead of immediately returning the final value, the asynchronous method returns a
+                            promise to supply the value at some point in the future.</li>
+                        <li>A promise is a returned object to which you attach callbacks, instead of passing
+                            callbacks into a function.</li>
+                        <li>The Promise object represents the eventual completion (or failure) of an
+                            asynchronous
+                            operation and its resulting value.</li>
+                        <li>A promise is basically saying either i will resolve, if it has a success, or I
+                            reject if
+                            there is an error.</li>
+                        <li>One of the great things about using promises is chaining, which is to execute two or
+                            more asynchronous operations back to back, where each subsequent operation starts
+                            when
+                            the previous operation succeeds, with the result from the previous step.</li>
+                        <li>A promise chain <code>then</code> function returns a new promise, different from the
+                            original.
+                            <em>Note: </em> Always return results, otherwise callbacks won't catch the result of
+                            a
+                            previous promise
+                        </li>
+                        <li>
+                            <ul>States of a promise
+                                <li><em>pending: initial state, neither fulfilled nor rejected.</em></li>
+                                <li><em>fulfilled: </em>meaning that the operation was completed successfully.
+                                </li>
+                                <li><em>rejected: </em>meaning that the operation failed.</li>
+                            </ul>
+                        </li>
+                        <li>A pending promise can either be fulfilled with a value or rejected with a reason
+                            (error). When either of these
+                            options happens, the associated handlers queued up by a promise's then method are
+                            called. If the promise has already
+                            been fulfilled or rejected when a corresponding handler is attached, the handler
+                            will be
+                            called, so there is no race
+                            condition between an asynchronous operation completing and its handlers being
+                            attached.
+                        </li>
+                        <li>The .then() method takes up to two arguments; the first argument is a callback
+                            function
+                            for the resolved case of the
+                            promise, and the second argument is a callback function for the rejected case. Each
+                            .then() returns a newly
+                            generated promise object, which can optionally be used for chaining</li>
+
+                    </ol>
+
+                    <div>
+                        <img src="resources/images/promise.jpg" alt="Promise Diagram">
+                    </div>
+                </div>
+                <div>
+                    <h1>fetch</h1>
+                    <ul>
+                        <li>The Fetch API provides a JavaScript interface for accessing and manipulating parts of
+                            the
+                            HTTP pipeline, such as
+                            requests and responses. It also provides a global fetch() method that provides an easy,
+                            logical way to fetch
+                            resources asynchronously across the network.</li>
+                        <li>The json() method of the Response interface takes a Response stream and reads it to
+                            completion. It returns a promise which resolves with a JavaScript object that is the
+                            result
+                            of parsing the body text
+                            as JSON. <code>xyz.json()</code></li>
+
+                    </ul>
+                </div>
+                <div>
+                    <h1>Async ... await</h1>
+                    <ul>
+                        <li>Async functions always return a promise. Async is a newer and cleaner syntax for working
+                            with async code.</li>
+                        <li>The function is declared with the <code>async</code> keyword</li>
+                        <li>Use await keyword inside of functions declared with async.</li>
+                        <li>await will pause the execution of the function, waiting for a promise </li>
+                        <li>await can be put in front of any async promise-based function to pause your code on that
+                            line until the promise
+                            fulfills, then return the resulting value.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h1>Throwing and Catching Errors</h1>
+                    The throw statement throws a user-defined exception. Execution of the current function will stop
+                    (the statements after
+                    throw won't be executed), and control will be passed to the first catch block in the call stack.
+                    If
+                    no catch block
+                    exists among caller functions, the program will terminate.
+                </div>
+
+
+
+            </section>
+            <footer class="footer">
+
+            </footer>
+        </div>
+    </section>
+
+</body>
+
+</html>
